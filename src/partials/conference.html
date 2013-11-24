@@ -1,0 +1,27 @@
+<div style="position: fixed; left: 0; top: 0; box-sizing: border-box; padding: 5px; background-color: white; z-index: 10; width: 100%">
+  <ul class="days">
+    <li ng-repeat="day in days">
+      <a ui-sref="conference({name: confName, day: day.number })" ng-class="{ selected: selectedDay==day.number}">{{day.name}}</a>
+    </li>
+  </ul>
+</div>
+<div class="planning">
+  <div class="time">
+    <div class="room_name">&nbsp;</div>
+    <div class="events">
+      <event class="coffeebreak h1140 d0020"></event>
+    </div>
+  </div>
+  <div class="rooms">
+    <div ng-repeat="hour in hours" class="hour" time="{{hour*60}}" label="{{''+hour+':00'}}"></div>
+    <div ng-repeat="hour in hours" class="halfhour" time="{{hour*60+30}}" label="{{''+hour+':30'}}"></div>
+  </div>
+  <div ng-repeat="room in rooms" class="room" ng-class="{ first: $first, last: $last }">
+    <div class="room_name">{{room.name}}</div>
+    <div class="events">
+      <event title="{{event.presentation.summary}}" class="event" ng-class="{ selected: selectedEvents[event.id] }" start-time="{{event.fromTime}}" end-time="{{event.toTime}}" ng-repeat="event in room.events" ng-click="toggleEvent(event)" >
+        {{event.presentation.title || event.note || event.kind}}
+      </event>
+    </div>
+  </div>
+</div>

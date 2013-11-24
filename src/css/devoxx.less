@@ -1,0 +1,171 @@
+body {
+  overflow-x: scroll;
+  overflow-y: scroll;
+}
+
+.rooms {
+  margin-left: 45px;
+  left: 0;
+  right: 0;
+  margin-top: 21px;
+  position: absolute;
+}
+
+.days {
+  list-style: none;
+  display: inline-block;
+  margin: 0;
+}
+
+.days .selected {
+  background-color: #ddd;
+}
+
+.days:after {
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  line-height: 0;
+  clear: both;
+}
+
+.days {
+  li {
+    float: left;
+    border-left: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+  li:last-child {
+    border-right: 1px solid #ddd;
+  }
+  a {
+    display: inline-block;
+    padding: 4px;
+    color: black;
+    text-decoration: none;
+  }
+}
+
+
+.planning {
+  position: relative;
+  margin-top: 30px;
+  margin-right: 11px;
+  padding-left: 45px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.time {
+  position: relative;
+  float: left;
+  width: 5px;
+  border-right: 1px solid #ddd;
+}
+
+.time .events {
+  border-left: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-right: none;
+}
+
+.time .room_name {
+  border: 1px solid transparent;
+}
+
+.room {
+  position: relative;
+  width: 150px;
+  display: inline-block;
+}
+
+.events {
+  position: relative;
+  height: 31*50px;
+  border-right: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.last {
+  &.room {
+    border-right: 1px solid #ddd;
+  }
+  .events,.room_name {
+    border-right: none;
+  }
+}
+
+.event {
+  position: absolute;
+  overflow: hidden;
+  z-index: 2;
+  border: 1px solid gray;
+  border-radius: 4px;
+  background-color: lightgrey;
+  right: 5px;
+  left: 5px;
+  font-size: small;
+  padding: 1px 3px;
+  box-sizing: border-box;
+  white-space: normal;
+}
+
+.event:hover {
+  background-color: grey;
+}
+
+.event.selected {
+  background-color: cyan;
+}
+
+.coffeebreak {
+  position: absolute;
+  width: 5px;
+  background-color: gray;
+}
+
+.hour:before, .halfhour:before {
+  position: absolute;
+  margin-left: -45px;
+  margin-top: -7px;
+  font-size: small;
+  content: attr(label);
+}
+
+.hour {
+  position: absolute;
+  border-top: 1px solid #ddd;
+  right: 0px;
+  left: 0px;
+}
+
+.h800 {
+  border-top: none;
+}
+
+.halfhour {
+  z-index: 1;
+  position: absolute;
+  border-top: 1px dotted #ddd;
+  right: 0px;
+  left: 0px;
+}
+
+.room_name {
+//  position: absolute;
+//  top: -20px;
+  left: 0px;
+  right: 0px;
+  text-align: center;
+  font-size: small;
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 2px;
+}
+
+
