@@ -54,30 +54,7 @@ app.controller("Day", function($stateParams, $scope, $http, $q) {
   $scope.confName = $stateParams.name;
   
   $scope.hours = [ 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
-  
-  $scope.eventClasses = function(event) {
-    var from = Date.parse(event.fromTime);
-    var fromDate = new Date(from);
-    var to = Date.parse(event.toTime);
-    var durationInMinutes = (to-from)/1000/60;
-    return "h"+fromDate.getHours()+fromDate.getMinutes()+" d"+durationInMinutes;
-  }
-
-  $scope.eventStyle = function(event) {
-    var from = Date.parse(event.fromTime);
-    var fromDate = new Date(from);
-    var to = Date.parse(event.toTime);
-    var durationInMinutes = (to-from)/1000/60;
     
-    function minutesToPixels(minutes) { return minutes * 50 / 30 - 1};
-    
-    var height = minutesToPixels(durationInMinutes);
-    var top = minutesToPixels((fromDate.getHours()-8)*60+fromDate.getMinutes());
-
-    return ""
-    //return "height: "+height+"px; margin-top: "+top+"px";
-  }
-  
   $scope.selectedEvents = JSON.parse(window.localStorage.getItem("selectedEvents")) || {};
   
   $scope.toggleEvent = function(event) {
