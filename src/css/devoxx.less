@@ -15,22 +15,21 @@ body {
   list-style: none;
   display: inline-block;
   margin: 0;
-}
+  vertical-align: middle;
+  
+  .selected {
+    background-color: #ddd;
+  }
 
-.days .selected {
-  background-color: #ddd;
-}
+  &:after {
+    content: '.';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    line-height: 0;
+    clear: both;
+  }
 
-.days:after {
-  content: '.';
-  display: block;
-  visibility: hidden;
-  height: 0;
-  line-height: 0;
-  clear: both;
-}
-
-.days {
   li {
     float: left;
     border-left: 1px solid #ddd;
@@ -113,6 +112,7 @@ body {
   padding: 1px 3px;
   box-sizing: border-box;
   white-space: normal;
+  -webkit-user-select: none;
 }
 
 .event:hover {
