@@ -1,4 +1,5 @@
 <div style="position: fixed; left: 0; top: 0; box-sizing: border-box; padding: 5px; background-color: white; z-index: 10; width: 100%">
+  <span>{{confName}}</span>
   <ul class="days">
     <li ng-repeat="day in days">
       <a ui-sref="conference({name: confName, day: day.number })" ng-class="{ selected: selectedDay==day.number}">{{day.name}}</a>
