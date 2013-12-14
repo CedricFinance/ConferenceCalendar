@@ -57,7 +57,12 @@ app.controller("Day", function($stateParams, $scope, $http, $q) {
     
   $scope.selectedEvents = JSON.parse(window.localStorage.getItem("selectedEvents")) || {};
   
+  $scope.isSelected = function(event) {
+    return $scope.selectedEvents[event.id];
+  }
+
   $scope.toggleEvent = function(event) {
+    console.log("toggle")
     $scope.selectedEvents[event.id] = !$scope.selectedEvents[event.id];
     window.localStorage.setItem("selectedEvents", JSON.stringify($scope.selectedEvents));
   }

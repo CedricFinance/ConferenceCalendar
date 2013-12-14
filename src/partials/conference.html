@@ -9,7 +9,7 @@
   <div class="time">
     <div class="room_name">&nbsp;</div>
     <div class="events">
-      <event class="coffeebreak h1140 d0020"></event>
+      <div class="coffeebreak h1140 d0020"></div>
     </div>
   </div>
   <div class="rooms">
@@ -19,8 +19,7 @@
   <div ng-repeat="room in rooms" class="room" ng-class="{ first: $first, last: $last }">
     <div class="room_name">{{room.name}}</div>
     <div class="events">
-      <event title="{{event.presentation.summary}}" class="event" ng-class="{ selected: selectedEvents[event.id] }" start-time="{{event.fromTime}}" end-time="{{event.toTime}}" ng-repeat="event in room.events" ng-click="toggleEvent(event)" >
-        {{event.presentation.title || event.note || event.kind}}
+      <event class="event" value="event" click="toggleEvent(event)" selected="isSelected(event)" ng-repeat="event in room.events">
       </event>
     </div>
   </div>
