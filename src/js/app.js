@@ -2,7 +2,7 @@ var app = angular.module("Calendar", ['ui.router.state', 'Calendar.directives'])
 
 app.config(function($stateProvider, $urlRouterProvider){
   //
-  
+
   $urlRouterProvider
   .when('/conferences/:name', '/conferences/:name/1')
   .otherwise("/conferences/devoxx13") 
@@ -14,11 +14,68 @@ app.config(function($stateProvider, $urlRouterProvider){
       templateUrl: "partials/conferences.html"
     })
     .state('conference', {
-      url: "/conferences/:name/:day",
+      url: "/conferences/:name",
+      abstract: true,
+      templateUrl: "partials/abstractconference.html",
+      controller: "Conference"
+    })
+    .state('conference.day', {
+      url: "/:day",
       templateUrl: "partials/conference.html",
       controller: "Day"
     })
 
+});
+
+app.controller("Conference", function($stateParams, $scope) {
+  $scope.confName = $stateParams.name;
+
+  $scope.hours = [ 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+
+  $scope.rooms = [
+    { name: "Hollywood Lounge", events: []},
+    { name: "Room 3", events: []},
+    { name: "Room 4", events: []},
+    { name: "Room 5", events: []},
+    { name: "Room 6", events: []},
+    { name: "Room 7", events: []},
+    { name: "Room 8", events: []},
+    { name: "Room 9", events: []},
+    { name: "BOF 1", events: []},
+    { name: "BOF 2", events: []}
+  ];
+
+  function findByName(name, collection) {
+    for(var i=0; i<collection.length; i++) {
+      var item = collection[i];
+      if (item.name==name) {
+        return item;
+      }
+    }
+    console.log("Object with name '"+name+"' not found")
+  }
+
+  $scope.clearRoomEvents = function() {
+    $scope.rooms.forEach(function(room) {
+      room.events = [];
+    });
+  }
+
+  $scope.setRoomEvents = function(roomName, events) {
+    findByName(roomName, $scope.rooms).events = events;
+  };
+
+  $scope.days = [
+    { number: 1, name: "mercredi", url: "data/devoxx-schedule-3.json" },
+    { number: 2, name: "jeudi", url: "data/devoxx-schedule-4.json" },
+    { number: 3, name: "vendredi", url: "data/devoxx-schedule-5.json"}
+  ];
+
+  $scope.selectedDay = 1;
+
+  $scope.selectDay = function(day) {
+    $scope.selectedDay = day;
+  }
 });
 
 app.controller("Day", function($stateParams, $scope, $http, $q) {
@@ -44,16 +101,7 @@ app.controller("Day", function($stateParams, $scope, $http, $q) {
     return result;
   }
   
-  $scope.days = [
-    { number: 1, name: "mercredi", url: "data/devoxx-schedule-3.json" },
-    { number: 2, name: "jeudi", url: "data/devoxx-schedule-4.json" },
-    { number: 3, name: "vendredi", url: "data/devoxx-schedule-5.json"}
-  ]
-  $scope.selectedDay = parseInt($stateParams.day);
-
-  $scope.confName = $stateParams.name;
-  
-  $scope.hours = [ 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+  $scope.selectDay(parseInt($stateParams.day));
     
   $scope.selectedEvents = JSON.parse(window.localStorage.getItem("selectedEvents")) || {};
   
@@ -72,6 +120,11 @@ app.controller("Day", function($stateParams, $scope, $http, $q) {
   var ajaxPresentations = $http.get("data/devoxx-presentations.json", { cache: true });
   
   $q.all([ajaxSchedule, ajaxPresentations]).then(function(values) {
-    $scope.rooms = groupByRoom(values[0].data, toHash(values[1].data));
+    var rooms = groupByRoom(values[0].data, toHash(values[1].data));
+    $scope.clearRoomEvents();
+    for(roomName in rooms) {
+      var room = rooms[roomName];
+      $scope.setRoomEvents(roomName, room.events);
+    }
   });
 });

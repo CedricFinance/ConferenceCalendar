@@ -1,0 +1,23 @@
+<div style="position: fixed; left: 0; top: 0; box-sizing: border-box; padding: 5px; background-color: white; z-index: 10; width: 100%">
+  <span>{{confName}}</span>
+  <ul class="days">
+    <li ng-repeat="day in days">
+      <a ui-sref="conference.day({name: confName, day: day.number })" ng-class="{ selected: selectedDay==day.number}">{{day.name}}</a>
+    </li>
+  </ul>
+</div>
+<div class="planning">
+  <div class="time">
+    <div class="room_name">&nbsp;</div>
+    <div class="events">
+      <div class="coffeebreak h1140 d0020"></div>
+    </div>
+  </div>
+  <div class="rooms">
+    <div ng-repeat="hour in hours" class="hour" time="{{hour*60}}" label="{{''+hour+':00'}}"></div>
+    <div ng-repeat="hour in hours" class="halfhour" time="{{hour*60+30}}" label="{{''+hour+':30'}}"></div>
+  </div>
+  <div ui-view>
+  </div>
+</div>
+
