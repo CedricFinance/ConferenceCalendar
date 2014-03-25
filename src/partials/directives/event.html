@@ -1,3 +1,3 @@
-<div ng-class="{ selected: selected }" title="{{event.presentation.summary}}" >
-  {{event.presentation.title || event.note || event.kind}}
+<div ng-class="{ selected: selected }" title="{{event.presentation.summary || event.talk.summary}}" >
+  {{event.name}}
 </div>

@@ -22,12 +22,20 @@ module.directive("event", function(TimeService) {
     templateUrl: "partials/directives/event.html",
     link: function(scope, elt, attrs) {
       
-      var from = Date.parse(scope.event.fromTime);
-      var fromDate = new Date(from);
-      var to = Date.parse(scope.event.toTime);
-      var durationInMinutes = (to-from)/1000/60;
+      function convertToMillis(millis, date) {
+        if (millis) {
+          return millis;
+        } else {
+          return Date.parse(date);
+        }
+      }
+
+      var fromMillis = convertToMillis(scope.event.fromTimeMillis, scope.event.fromTime);
+      var from = new Date(fromMillis);
+      var toMillis = convertToMillis(scope.event.toTimeMillis, scope.event.toTime);
+      var durationInMinutes = (toMillis-fromMillis)/1000/60;
     
-      var topOffset = TimeService.minutesToPixelsTicks(TimeService.dateToMinutesSinceMidnight(fromDate)) - 1;
+      var topOffset = TimeService.minutesToPixelsTicks(TimeService.dateToMinutesSinceMidnight(from)) - 1;
       var height = TimeService.minutesToPixels(durationInMinutes);
       elt.css({
         "marginTop": topOffset+"px",
