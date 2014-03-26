@@ -16,5 +16,5 @@ module.service("TimeService", function() {
     minutesToPixels: function(minutes) {
       return minutes * config.pixelsPerHour / 60;
     }
-  }
-})
+  };
+});

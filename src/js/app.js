@@ -5,7 +5,7 @@ app.config(function($stateProvider, $urlRouterProvider){
 
   $urlRouterProvider
   .when('/conferences/:name', '/conferences/:name/1')
-  .otherwise("/conferences/devoxx13") 
+  .otherwise("/conferences/devoxx13") ;
   //
   // Now set up the states
   $stateProvider
@@ -23,7 +23,7 @@ app.config(function($stateProvider, $urlRouterProvider){
       url: "/:day",
       templateUrl: "partials/conference.html",
       controller: "Day"
-    })
+    });
 
 });
 
@@ -41,7 +41,7 @@ app.controller("Conference", function($stateParams, $scope, ConferenceService) {
   function findByName(name, collection) {
     for(var i=0; i<collection.length; i++) {
       var item = collection[i];
-      if (item.name==name) {
+      if (item.name === name) {
         return item;
       }
     }
@@ -51,14 +51,14 @@ app.controller("Conference", function($stateParams, $scope, ConferenceService) {
     $scope.rooms.forEach(function(room) {
       room.events = [];
     });
-  }
+  };
 
   $scope.setRoomEvents = function(roomName, events) {
     var room = findByName(roomName, $scope.rooms);
     if (room) {
       room.events = events;
     } else {
-      console.log("Object with name '"+roomName+"' not found for events:")
+      console.log("Object with name '"+roomName+"' not found for events:");
       console.log(events);
     }
   };
@@ -69,7 +69,7 @@ app.controller("Conference", function($stateParams, $scope, ConferenceService) {
 
   $scope.selectDay = function(day) {
     $scope.selectedDay = day;
-  }
+  };
 });
 
 app.controller("Day", function($stateParams, $scope, $http, $q) {
@@ -80,18 +80,18 @@ app.controller("Day", function($stateParams, $scope, $http, $q) {
   
   $scope.isSelected = function(event) {
     return $scope.selectedEvents[event.id];
-  }
+  };
 
   $scope.toggleEvent = function(event) {
-    console.log("toggle")
+    console.log("toggle");
     $scope.selectedEvents[event.id] = !$scope.selectedEvents[event.id];
     window.localStorage.setItem("selectedEvents", JSON.stringify($scope.selectedEvents));
-  }
+  };
   
   $scope.conference.getEventsByRoomForDay($scope.selectedDay).then(
     function(rooms) {
       $scope.clearRoomEvents();
-      for(roomName in rooms) {
+      for(var roomName in rooms) {
         var room = rooms[roomName];
         $scope.setRoomEvents(roomName, room.events);
       }

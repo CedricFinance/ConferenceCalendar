@@ -20,14 +20,14 @@ app.factory("DevoxxFRFactory", function($http, Utils) {
     this.schedules = options.schedules;
     this.presentationsUrl = options.presentationsUrl;
     this.rooms = options.rooms;
-  };
+  }
 
   ConferenceDevoxxFR.prototype.getEventsByRoomForDay = function(day) {
 
     function createEvent(slot) {
       var properties = {
         id: slot.slotId
-      }
+      };
 
       if (slot.talk != null) {
         properties.name = slot.talk.title;
@@ -94,7 +94,7 @@ app.factory("DevoxxBEFactory", function($http, $q, Utils) {
       return new ConferenceDevoxxBE(properties);
     }
   };
-})
+});
 
 app.factory("ConferenceFactory", function() {
   var registry = {};
@@ -142,5 +142,5 @@ app.factory("ConferenceService", function($http, $q, ConferenceFactory) {
     find: function(name) {
       return conferences[name];
     }
-  }
+  };
 });

@@ -7,7 +7,7 @@ module.directive("time", function(TimeService) {
       var topOffset = TimeService.minutesToPixelsTicks(parseInt(attrs.time)) - 1;
       elt.css({ "top": topOffset });
     }
-  }
+  };
 });
 
 module.directive("event", function(TimeService) {
@@ -43,13 +43,13 @@ module.directive("event", function(TimeService) {
       });
 
       elt.bind("click", function(event) {
-        console.log("click")
+        console.log("click");
         scope.$apply(function() {
           scope.selected = !scope.selected;
-          scope.clickHandler({event: scope.event})
+          scope.clickHandler({event: scope.event});
         });
       });
 
     }    
-  }
+  };
 });

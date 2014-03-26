@@ -18,7 +18,7 @@ app.factory("Utils", function() {
     var result = {};
     array.forEach(function(item) {
       result[item.id] = item;
-    })
+    });
     return result;
   }
 
