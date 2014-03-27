@@ -20,34 +20,37 @@ app.factory("DevoxxFRFactory", function($http, Utils) {
     this.schedules = options.schedules;
     this.presentationsUrl = options.presentationsUrl;
     this.rooms = options.rooms;
+    this.patchEvent = options.patchEvent || angular.noop;
   }
 
-  ConferenceDevoxxFR.prototype.getEventsByRoomForDay = function(day) {
+  ConferenceDevoxxFR.prototype._createEvent = function(slot) {
+    var properties = {
+      id: slot.slotId
+    };
 
-    function createEvent(slot) {
-      var properties = {
-        id: slot.slotId
-      };
-
-      if (slot.talk != null) {
-        properties.name = slot.talk.title;
-        properties.summary = slot.talk.summary;
-      } else if (slot.break != null) {
-        properties.name = slot.break.nameFR;
-      } else {
-        properties.name = "=== Unknown ===";
-      }
-
-      properties.room = slot.roomName;
-      properties.fromTimeMillis = slot.fromTimeMillis;
-      properties.toTimeMillis = slot.toTimeMillis;
-
-      return new Event(properties);
+    if (slot.talk != null) {
+      properties.name = slot.talk.title;
+      properties.summary = slot.talk.summary;
+    } else if (slot.break != null) {
+      properties.name = slot.break.nameFR;
+    } else {
+      properties.name = "=== Unknown ===";
     }
+
+    properties.room = slot.roomName;
+    properties.fromTimeMillis = slot.fromTimeMillis;
+    properties.toTimeMillis = slot.toTimeMillis;
+    this.patchEvent(properties);
+
+    return new Event(properties);
+  };
+
+  ConferenceDevoxxFR.prototype.getEventsByRoomForDay = function(day) {
+    var that = this;
 
     function toEvents(schedule) {
       console.log(schedule.data.slots);
-      return schedule.data.slots.map(createEvent);
+      return schedule.data.slots.map(that._createEvent, that);
     }
 
     var ajaxSchedule = $http.get(this.schedules[day-1].url);
@@ -112,6 +115,15 @@ app.factory("ConferenceFactory", function() {
 
 app.factory("ConferenceService", function($http, $q, ConferenceFactory) {
 
+  var devoxxFrRoomOverride = {
+    "E.Fitzgerald AB": "Ella Fitzgerald AB",
+    "L.Armstrong AB": "Louis Armstrong AB",
+    "L.Armstrong CD": "Louis Armstrong CD",
+    "M.Davis A": "Miles Davis A",
+    "M.Davis B": "Miles Davis B",
+    "M.Davis C": "Miles Davis C"
+  };
+
   var conferences = {
     "devoxx13": ConferenceFactory.createConference({
       name: "Devoxx 2013",
@@ -130,6 +142,9 @@ app.factory("ConferenceService", function($http, $q, ConferenceFactory) {
         { number: 2, name: "jeudi", url: "data/devoxxfr/schedule-thursday.json" },
         { number: 3, name: "vendredi", url: "data/devoxxfr/schedule-friday.json" },
       ],
+      patchEvent: function(event) {
+        event.room = devoxxFrRoomOverride[event.room] || event.room;
+      },
       type: "devoxxFR"
     })
   };
