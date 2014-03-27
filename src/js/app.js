@@ -5,7 +5,7 @@ app.config(function($stateProvider, $urlRouterProvider){
 
   $urlRouterProvider
   .when('/conferences/:name', '/conferences/:name/1')
-  .otherwise("/conferences/devoxx13") ;
+  .otherwise("/conferences/devoxxFR14") ;
   //
   // Now set up the states
   $stateProvider
