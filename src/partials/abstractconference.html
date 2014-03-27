@@ -2,7 +2,7 @@
   <span>{{confName}}</span>
   <ul class="days">
     <li ng-repeat="day in days">
-      <a ui-sref="conference.day({name: confName, day: day.number })" ng-class="{ selected: selectedDay==day.number}">{{day.name}}</a>
+      <a ui-sref="conference.day({ day: day.number })" ng-class="{ selected: selectedDay==day.number}">{{day.name}}</a>
     </li>
   </ul>
 </div>
