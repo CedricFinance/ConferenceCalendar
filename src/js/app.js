@@ -28,11 +28,10 @@ app.config(function($stateProvider, $urlRouterProvider){
 });
 
 app.controller("Conference", function($stateParams, $scope, ConferenceService) {
-  $scope.confName = $stateParams.name;
-
   $scope.hours = [ 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 
   $scope.conference = ConferenceService.find($stateParams.name);
+  $scope.confName = $scope.conference.name;
 
   $scope.setRooms = function(rooms) {
     $scope.rooms = rooms.map(function(roomName) {
