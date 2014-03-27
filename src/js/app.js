@@ -34,9 +34,13 @@ app.controller("Conference", function($stateParams, $scope, ConferenceService) {
 
   $scope.conference = ConferenceService.find($stateParams.name);
 
-  $scope.rooms = $scope.conference.rooms.map(function(roomName) {
-    return { name: roomName, events: [] };
-  });
+  $scope.setRooms = function(rooms) {
+    $scope.rooms = rooms.map(function(roomName) {
+      return { name: roomName, events: [] };
+    });
+  };
+
+  $scope.setRooms([]);
 
   function findByName(name, collection) {
     for(var i=0; i<collection.length; i++) {
@@ -72,7 +76,7 @@ app.controller("Conference", function($stateParams, $scope, ConferenceService) {
   };
 });
 
-app.controller("Day", function($stateParams, $scope, $http, $q) {
+app.controller("Day", function($stateParams, $scope, $http, $q, Utils) {
 
   $scope.selectDay(parseInt($stateParams.day));
     
@@ -90,6 +94,7 @@ app.controller("Day", function($stateParams, $scope, $http, $q) {
   
   $scope.conference.getEventsByRoomForDay($scope.selectedDay).then(
     function(rooms) {
+      $scope.setRooms(Utils.getObjectProperties(rooms));
       $scope.clearRoomEvents();
       for(var roomName in rooms) {
         var room = rooms[roomName];

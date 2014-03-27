@@ -22,8 +22,19 @@ app.factory("Utils", function() {
     return result;
   }
 
+  function getObjectProperties(obj) {
+    var result = [];
+    for(var prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        result.push(prop);
+      }
+    }
+    return result;
+  }
+
   return {
     groupBy: groupBy,
-    toHash: toHash
+    toHash: toHash,
+    getObjectProperties: getObjectProperties
   };
 });

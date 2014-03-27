@@ -115,7 +115,6 @@ app.factory("ConferenceService", function($http, $q, ConferenceFactory) {
   var conferences = {
     "devoxx13": ConferenceFactory.createConference({
       name: "Devoxx 2013",
-      rooms: [ "Hollywood Lounge", "Room 3", "Room 4", "Room 5", "Room 6", "Room 7", "Room 8", "Room 9", "BOF 1", "BOF 2"],
       schedules: [
         { number: 1, name: "mercredi", url: "data/devoxx-schedule-3.json" },
         { number: 2, name: "jeudi", url: "data/devoxx-schedule-4.json" },
@@ -126,9 +125,6 @@ app.factory("ConferenceService", function($http, $q, ConferenceFactory) {
     }),
     "devoxxFR14": ConferenceFactory.createConference({
       name: "Devoxx France 2014",
-      rooms: [ 'Espace d\'exposition', 'Other room', 'Seine A', 'Seine B', 'Seine C', 'Auditorium', 'Ella Fitzgerald AB',
-        'Louis Armstrong AB', 'Louis Armstrong CD', 'Miles Davis A', 'Miles Davis B', 'Miles Davis C', 'Foyer bas', 'E.Fitzgerald AB',
-        'L.Armstrong AB', 'L.Armstrong CD', 'M.Davis A', 'M.Davis B', 'M.Davis C', 'Duke Ellington-CodeStory', 'Ella Fitzgerald', 'M.Davis', 'Labo' ],
       schedules: [
         { number: 1, name: "mercredi", url: "data/devoxxfr/schedule-wednesday.json" },
         { number: 2, name: "jeudi", url: "data/devoxxfr/schedule-thursday.json" },
