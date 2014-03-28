@@ -1,3 +1,7 @@
 <div ng-class="{ selected: selected }" title="{{event.presentation.summary || event.summary}}" >
   {{event.name}}
+  <ul class="list-unstyled">
+    <li ng-if="event.track"><span class="label label-primary">{{event.track}}</span></li>
+    <li ng-if="event.talkType"><span class="label label-success">{{event.talkType}}</span></li>
+  </ul>
 </div>
