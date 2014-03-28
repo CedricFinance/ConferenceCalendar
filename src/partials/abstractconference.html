@@ -10,11 +10,9 @@
       </li>
     </ul>
   </span>
-  <ul class="days">
-    <li ng-repeat="day in days">
-      <a ui-sref="conference.day({ day: day.number })" ng-class="{ selected: selectedDay==day.number}">{{day.name}}</a>
-    </li>
-  </ul>
+  <span class="days btn-group">
+    <a ng-repeat="day in days" ui-sref="conference.day({ day: day.number })" class="btn btn-default btn-sm" ng-class="{ active: selectedDay==day.number}">{{day.name}}</a>
+  </span>
 </div>
 <div class="planning">
   <div class="time">

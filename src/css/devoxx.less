@@ -11,43 +11,6 @@ body {
   position: absolute;
 }
 
-.days {
-  list-style: none;
-  display: inline-block;
-  margin: 0;
-  vertical-align: middle;
-  
-  .selected {
-    background-color: #ddd;
-  }
-
-  &:after {
-    content: '.';
-    display: block;
-    visibility: hidden;
-    height: 0;
-    line-height: 0;
-    clear: both;
-  }
-
-  li {
-    float: left;
-    border-left: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-  }
-  li:last-child {
-    border-right: 1px solid #ddd;
-  }
-  a {
-    display: inline-block;
-    padding: 4px;
-    color: black;
-    text-decoration: none;
-  }
-}
-
-
 .planning {
   position: relative;
   margin-top: 40px;
