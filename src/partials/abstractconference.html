@@ -1,5 +1,15 @@
 <div style="position: fixed; left: 0; top: 0; box-sizing: border-box; padding: 5px; background-color: white; z-index: 10; width: 100%">
-  <span>{{confName}}</span>
+  <span class="dropdown">
+    <button class="btn btn-default btn-sm" type="button" id="dropdownMenu1" data-toggle="dropdown">
+      {{confName}}
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+      <li role="presentation" ng-repeat="conf in conferences" ng-class="{ disabled: confName===conf.name}">
+        <a role="menuitem" tabindex="-1" ui-sref="conference.day({ name: conf.code })">{{conf.name}}</a
+      </li>
+    </ul>
+  </span>
   <ul class="days">
     <li ng-repeat="day in days">
       <a ui-sref="conference.day({ day: day.number })" ng-class="{ selected: selectedDay==day.number}">{{day.name}}</a>

@@ -152,6 +152,11 @@ app.factory("ConferenceService", function($http, $q, ConferenceFactory) {
   return {
     find: function(name) {
       return conferences[name];
+    },
+    getAllConferenceNames: function() {
+      return Object.getOwnPropertyNames(conferences).map(function(conferenceCode) {
+        return { code: conferenceCode, name: conferences[conferenceCode].name };
+      });
     }
   };
 });
