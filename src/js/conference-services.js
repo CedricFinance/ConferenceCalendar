@@ -16,13 +16,15 @@ app.run(function(ConferenceFactory, DevoxxFRFactory, DevoxxBEFactory) {
   ConferenceFactory.register("devoxxBE", DevoxxBEFactory);
 });
 
-app.factory("DevoxxFRFactory", function($http, Utils) {
+app.factory("DevoxxFRFactory", function($http, $q, Utils) {
   function ConferenceDevoxxFR(options) {
     this.name = options.name;
     this.schedules = options.schedules;
     this.presentationsUrl = options.presentationsUrl;
     this.rooms = options.rooms;
     this.patchEvent = options.patchEvent || angular.noop;
+
+    this.eventsByRoom = [];
   }
 
   ConferenceDevoxxFR.prototype._createEvent = function(slot) {
@@ -39,6 +41,7 @@ app.factory("DevoxxFRFactory", function($http, Utils) {
       properties.name = slot.break.nameFR;
     } else {
       properties.name = "=== Unknown ===";
+      console.log(slot);
     }
 
     properties.room = slot.roomName;
@@ -50,6 +53,9 @@ app.factory("DevoxxFRFactory", function($http, Utils) {
   };
 
   ConferenceDevoxxFR.prototype.getEventsByRoomForDay = function(day) {
+    if (this.eventsByRoom[day]) {
+      return $q.when(this.eventsByRoom[day]);
+    }
     var that = this;
 
     function toEvents(schedule) {
@@ -62,6 +68,7 @@ app.factory("DevoxxFRFactory", function($http, Utils) {
     return ajaxSchedule.then(toEvents).then(function(events) {
       var rooms = Utils.groupBy("room", events, {});
       console.log(rooms);
+      that.eventsByRoom[day] = rooms;
       return rooms;
     });
   };
