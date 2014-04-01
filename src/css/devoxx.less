@@ -64,7 +64,7 @@ body {
 
 .event {
   position: absolute;
-  overflow: hidden;
+  overflow-x: visible;
   z-index: 2;
   border: 1px solid gray;
   border-radius: 4px;
@@ -76,14 +76,42 @@ body {
   box-sizing: border-box;
   white-space: normal;
   -webkit-user-select: none;
+
+  .actions {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: -16px;
+    padding-left: 2px;
+    padding-bottom: 2px;
+    width: 16px;
+    border: 1px solid grey;
+    background-color: #efefef;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+
+    ul {
+      margin-bottom: 0px;
+    }
+  }
 }
 
 .event:hover {
-  background-color: grey;
+  background-color: #efefef;
+  height: initial !important;
+  z-index: 100;
+
+  .actions {
+    display: block;
+  }
 }
 
 .event.selected {
   background-color: cyan;
+}
+
+.event.notinterested {
+  opacity: 0.5;
 }
 
 .coffeebreak {

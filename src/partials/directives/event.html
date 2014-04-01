@@ -1,7 +1,16 @@
 <div ng-class="{ selected: selected }" title="{{event.presentation.summary || event.summary}}" >
-  {{event.name}}
-  <ul class="list-unstyled">
-    <li ng-if="event.track"><span class="label label-primary">{{event.track}}</span></li>
-    <li ng-if="event.talkType"><span class="label label-success">{{event.talkType}}</span></li>
-  </ul>
+  <div class="content" style="overflow: hidden; height: 100%">
+    {{event.name}}
+    <ul class="list-unstyled">
+      <li ng-if="event.track"><span class="label label-primary">{{event.track}}</span></li>
+      <li ng-if="event.talkType"><span class="label label-success">{{event.talkType}}</span></li>
+    </ul>
+  </div>
+  <div class="actions">
+    <ul class="list-unstyled">
+      <li><span class="glyphicon glyphicon-star" title="Mark as favorite"></span></li>
+      <li><span class="glyphicon glyphicon-remove" title="Not interested"></span></li>
+      <li><span class="glyphicon glyphicon-time" title="Watch Later"></span></li>
+    </ul>
+  </div>
 </div>

@@ -39,6 +39,7 @@ module.directive("event", function(TimeService) {
       var height = TimeService.minutesToPixels(durationInMinutes);
       elt.css({
         "marginTop": topOffset+"px",
+        "min-height": height+"px",
         "height": height+"px"
       });
 
