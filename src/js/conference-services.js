@@ -9,6 +9,7 @@ function Event(properties) {
   this.room = properties.room;
   this.talkType = properties.talkType;
   this.track = properties.track;
+  this.recorded = properties.recorded;
 }
 
 app.run(function(ConferenceFactory, DevoxxFRFactory, DevoxxBEFactory) {
@@ -37,6 +38,7 @@ app.factory("DevoxxFRFactory", function($http, $q, Utils) {
       properties.summary = slot.talk.summary;
       properties.track = slot.talk.track;
       properties.talkType = slot.talk.talkType;
+      properties.recorded = slot.talk.talkType === "Conference" || slot.talk.talkType === "University";
     } else if (slot.break != null) {
       properties.name = slot.break.nameFR;
     } else {

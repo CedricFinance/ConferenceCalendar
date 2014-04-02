@@ -79,17 +79,32 @@ app.controller("Conference", function($stateParams, $scope, ConferenceService) {
 app.controller("Day", function($stateParams, $scope, $http, $q, Utils) {
 
   $scope.selectDay(parseInt($stateParams.day));
-    
-  $scope.selectedEvents = JSON.parse(window.localStorage.getItem("selectedEvents")) || {};
-  
-  $scope.isSelected = function(event) {
-    return $scope.selectedEvents[event.id];
+
+  var eventsFlags = JSON.parse(window.localStorage.getItem("eventsFlags")) || {};
+
+  function migration(flags) {
+    var data = window.localStorage.getItem("selectedEvents");
+    if (data === null) {
+      return;
+    }
+    var selectedEvents = JSON.parse(data);
+    Object.keys(selectedEvents).forEach(function(key) {
+      flags[key] = { favorite: selectedEvents[key], notInterested: false, watchLater: false}
+    });
+    window.localStorage.removeItem("selectedEvents");
+  };
+  migration(eventsFlags);
+
+  $scope.flagsForEvent = function(event) {
+    if (typeof eventsFlags[event.id] !== "object") {
+      eventsFlags[event.id] = { favorite: false, notInterested: false, watchLater: false }
+    }
+    return eventsFlags[event.id];
   };
 
-  $scope.toggleEvent = function(event) {
-    console.log("toggle");
-    $scope.selectedEvents[event.id] = !$scope.selectedEvents[event.id];
-    window.localStorage.setItem("selectedEvents", JSON.stringify($scope.selectedEvents));
+  $scope.flagsChanged = function(event, flags) {
+    eventsFlags[event.id] = flags;
+    window.localStorage.setItem("eventsFlags", JSON.stringify(eventsFlags));
   };
   
   $scope.conference.getEventsByRoomForDay($scope.selectedDay).then(

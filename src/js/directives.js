@@ -16,8 +16,8 @@ module.directive("event", function(TimeService) {
     replace: true,
     scope: {
       event: "=value",
-      selected: "=selected",
-      clickHandler: "&click"
+      flags: "=flags",
+      change: "&change"
     },
     templateUrl: "partials/directives/event.html",
     link: function(scope, elt, attrs) {
@@ -34,7 +34,7 @@ module.directive("event", function(TimeService) {
       var from = new Date(fromMillis);
       var toMillis = convertToMillis(scope.event.toTimeMillis, scope.event.toTime);
       var durationInMinutes = (toMillis-fromMillis)/1000/60;
-    
+
       var topOffset = TimeService.minutesToPixelsTicks(TimeService.dateToMinutesSinceMidnight(from)) - 1;
       var height = TimeService.minutesToPixels(durationInMinutes);
       elt.css({
@@ -43,14 +43,11 @@ module.directive("event", function(TimeService) {
         "height": height+"px"
       });
 
-      elt.bind("click", function(event) {
-        console.log("click");
-        scope.$apply(function() {
-          scope.selected = !scope.selected;
-          scope.clickHandler({event: scope.event});
-        });
-      });
+      scope.toggleFlag = function(flag) {
+        scope.flags[flag] = !scope.flags[flag];
+        scope.change({event: scope.event, flags: scope.flags});
+      }
 
-    }    
+    }
   };
 });

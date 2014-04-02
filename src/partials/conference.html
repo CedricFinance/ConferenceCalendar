@@ -1,7 +1,7 @@
 <div ng-repeat="room in rooms" class="room" ng-class="{ first: $first, last: $last }">
   <div class="room_name">{{room.name}}</div>
   <div class="events">
-    <event class="event" value="event" click="toggleEvent(event)" selected="isSelected(event)" ng-repeat="event in room.events">
+    <event class="event" value="event" change="flagsChanged(event, flags)" flags="flagsForEvent(event)" ng-repeat="event in room.events">
      </event>
   </div>
 </div>

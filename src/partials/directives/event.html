@@ -1,5 +1,7 @@
-<div ng-class="{ selected: selected }" title="{{event.presentation.summary || event.summary}}" >
+<div ng-class="{ favorite: flags.favorite, notInterested: flags.notInterested, watchLater: flags.watchLater }" title="{{event.presentation.summary || event.summary}}" >
   <div class="content" style="overflow: hidden; height: 100%">
+    <span ng-show="flags.favorite" class="glyphicon glyphicon-star"></span>
+    <span ng-show="flags.watchLater" class="glyphicon glyphicon-time"></span>
     {{event.name}}
     <ul class="list-unstyled">
       <li ng-if="event.track"><span class="label label-primary">{{event.track}}</span></li>
@@ -8,9 +10,9 @@
   </div>
   <div class="actions">
     <ul class="list-unstyled">
-      <li><span class="glyphicon glyphicon-star" title="Mark as favorite"></span></li>
-      <li><span class="glyphicon glyphicon-remove" title="Not interested"></span></li>
-      <li><span class="glyphicon glyphicon-time" title="Watch Later"></span></li>
+      <li><span class="glyphicon glyphicon-star" title="Mark as favorite" ng-click="toggleFlag('favorite')"></span></li>
+      <li><span class="glyphicon glyphicon-remove" title="Not interested" ng-click="toggleFlag('notInterested')"></span></li>
+      <li ng-show="event.recorded"><span class="glyphicon glyphicon-time" title="Watch Later" ng-click="toggleFlag('watchLater')"></span></li>
     </ul>
   </div>
 </div>
