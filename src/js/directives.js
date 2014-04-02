@@ -46,7 +46,7 @@ module.directive("event", function(TimeService) {
       scope.toggleFlag = function(flag) {
         scope.flags[flag] = !scope.flags[flag];
         scope.change({event: scope.event, flags: scope.flags});
-      }
+      };
 
     }
   };

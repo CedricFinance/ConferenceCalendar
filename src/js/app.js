@@ -89,15 +89,15 @@ app.controller("Day", function($stateParams, $scope, $http, $q, Utils) {
     }
     var selectedEvents = JSON.parse(data);
     Object.keys(selectedEvents).forEach(function(key) {
-      flags[key] = { favorite: selectedEvents[key], notInterested: false, watchLater: false}
+      flags[key] = { favorite: selectedEvents[key], notInterested: false, watchLater: false};
     });
     window.localStorage.removeItem("selectedEvents");
-  };
+  }
   migration(eventsFlags);
 
   $scope.flagsForEvent = function(event) {
     if (typeof eventsFlags[event.id] !== "object") {
-      eventsFlags[event.id] = { favorite: false, notInterested: false, watchLater: false }
+      eventsFlags[event.id] = { favorite: false, notInterested: false, watchLater: false };
     }
     return eventsFlags[event.id];
   };
