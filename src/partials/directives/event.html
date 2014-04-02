@@ -1,5 +1,5 @@
 <div ng-class="{ favorite: flags.favorite, notInterested: flags.notInterested, watchLater: flags.watchLater }" title="{{event.presentation.summary || event.summary}}" >
-  <div class="content" style="overflow: hidden; height: 100%">
+  <div class="content" style="overflow: hidden; height: 100%" ng-click="eventClicked()">
     <span ng-show="flags.favorite" class="glyphicon glyphicon-star"></span>
     <span ng-show="flags.watchLater" class="glyphicon glyphicon-time"></span>
     {{event.name}}

@@ -17,7 +17,8 @@ module.directive("event", function(TimeService) {
     scope: {
       event: "=value",
       flags: "=flags",
-      change: "&change"
+      change: "&change",
+      click: "&click"
     },
     templateUrl: "partials/directives/event.html",
     link: function(scope, elt, attrs) {
@@ -47,6 +48,10 @@ module.directive("event", function(TimeService) {
         scope.flags[flag] = !scope.flags[flag];
         scope.change({event: scope.event, flags: scope.flags});
       };
+
+      scope.eventClicked = function() {
+        scope.click({event: scope.event });
+      }
 
     }
   };

@@ -1,7 +1,17 @@
 <div ng-repeat="room in rooms" class="room" ng-class="{ first: $first, last: $last }">
   <div class="room_name">{{room.name}}</div>
   <div class="events">
-    <event class="event" value="event" change="flagsChanged(event, flags)" flags="flagsForEvent(event)" ng-repeat="event in room.events">
+    <event class="event" value="event" change="flagsChanged(event, flags)" click="showMore(event)" flags="flagsForEvent(event)" ng-repeat="event in room.events">
      </event>
   </div>
+</div>
+<div ng-show="sidebar" class="rightsidebar">
+  <div style="white-space: normal">
+    <h5>{{ selectedEvent.name }}</h5>
+    <p>{{ selectedEvent.summary }}</p>
+  </div>
+  <ul class="list-unstyled">
+    <li ng-if="selectedEvent.track"><span class="label label-primary">{{selectedEvent.track}}</span></li>
+    <li ng-if="selectedEvent.talkType"><span class="label label-success">{{selectedEvent.talkType}}</span></li>
+  </ul>
 </div>

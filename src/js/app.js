@@ -76,7 +76,7 @@ app.controller("Conference", function($stateParams, $scope, ConferenceService) {
   };
 });
 
-app.controller("Day", function($stateParams, $scope, $http, $q, Utils) {
+app.controller("Day", function($stateParams, $scope, $http, $q, $rootScope, Utils) {
 
   $scope.selectDay(parseInt($stateParams.day));
 
@@ -106,7 +106,17 @@ app.controller("Day", function($stateParams, $scope, $http, $q, Utils) {
     eventsFlags[event.id] = flags;
     window.localStorage.setItem("eventsFlags", JSON.stringify(eventsFlags));
   };
-  
+
+  $scope.showMore = function(event) {
+    if ($rootScope.selectedEvent && event.id === $rootScope.selectedEvent.id) {
+      $rootScope.sidebar = false;
+      $rootScope.selectedEvent = null;
+    } else {
+      $rootScope.sidebar = true;
+      $rootScope.selectedEvent = event;
+    }
+  }
+
   $scope.conference.getEventsByRoomForDay($scope.selectedDay).then(
     function(rooms) {
       $scope.setRooms(Utils.getObjectProperties(rooms));
