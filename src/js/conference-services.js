@@ -47,7 +47,7 @@ app.factory("DevoxxFRFactory", function($http, $q, Utils) {
     properties.room = slot.roomName;
     properties.fromTimeMillis = slot.fromTimeMillis;
     properties.toTimeMillis = slot.toTimeMillis;
-    this.patchEvent(properties);
+    this.patchEvent(properties, slot);
 
     return new Event(properties);
   };
@@ -153,8 +153,11 @@ app.factory("ConferenceService", function($http, $q, ConferenceFactory) {
         { number: 2, name: "jeudi", url: "data/devoxxfr/schedule-thursday.json" },
         { number: 3, name: "vendredi", url: "data/devoxxfr/schedule-friday.json" },
       ],
-      patchEvent: function(event) {
+      patchEvent: function(event, slot) {
         event.room = devoxxFrRoomOverride[event.room] || event.room;
+        if (slot.talk && slot.talk.id === "USM-170") {
+          event.room = event.room+" 1";
+        }
       },
       type: "devoxxFR"
     })
