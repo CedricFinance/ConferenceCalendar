@@ -28,6 +28,12 @@ app.factory("DevoxxFRFactory", function($http, $q, Utils) {
     this.eventsByRoom = [];
   }
 
+  var toolsInActionRecordedRooms = [ "Seine A", "Seine B", "Seine C", "Auditorium" ];
+
+  function isRecordedRoom(roomName) {
+    return toolsInActionRecordedRooms.indexOf(roomName) !== -1;
+  };
+
   ConferenceDevoxxFR.prototype._createEvent = function(slot) {
     var properties = {
       id: slot.slotId
@@ -38,7 +44,8 @@ app.factory("DevoxxFRFactory", function($http, $q, Utils) {
       properties.summary = slot.talk.summary;
       properties.track = slot.talk.track;
       properties.talkType = slot.talk.talkType;
-      properties.recorded = slot.talk.talkType === "Conference" || slot.talk.talkType === "University";
+      properties.recorded = slot.talk.talkType === "Conference" || slot.talk.talkType === "University"
+        || (slot.talk.talkType === "Tools-in-Action" && isRecordedRoom(slot.roomName));
     } else if (slot.break != null) {
       properties.name = slot.break.nameFR;
     } else {
