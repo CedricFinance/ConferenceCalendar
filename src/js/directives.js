@@ -38,8 +38,8 @@ module.directive("event", function(TimeService) {
 
       var topOffset = TimeService.minutesToPixelsTicks(TimeService.dateToMinutesSinceMidnight(from)) - 1;
       var height = TimeService.minutesToPixels(durationInMinutes);
-      elt.css({
-        "marginTop": topOffset+"px",
+      elt.css({ "marginTop": topOffset+"px" });
+      elt.find(".content").css({
         "min-height": height+"px",
         "height": height+"px"
       });
