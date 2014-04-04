@@ -17,6 +17,8 @@ function saveToFile(fileUrl, file) {
     }).on('end', function() {
       out.end();
     });
+  }).on('error', function(e) {
+    console.log("Error while downloading " + fileUrl + ": " + e.message);
   });
 }
 
