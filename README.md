@@ -4,7 +4,7 @@ Conference Calendar is a graphical view for Conferences Schedules.
 
 It currently supports Devoxx and Devoxx France.
 
-<img src="screenshot.png" alt="ConferenceCalendar Screenshot" style="width: 1024px;"/>
+<img src="http://cedricfinance.github.io/ConferenceCalendar/images/screenshot.png" alt="ConferenceCalendar Screenshot" style="width: 1024px;"/>
 
 ## Features
 
